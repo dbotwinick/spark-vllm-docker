@@ -1,0 +1,5 @@
+registries:
+  - name: eugr
+    description: Official registry for recipes from eugr/spark-vllm-docker
+    recipes: recipes
+
