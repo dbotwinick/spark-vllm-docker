@@ -182,6 +182,12 @@ detect_interfaces() {
             fi
         fi
 
+        # Export mesh NCCL settings directly so launch-cluster.sh picks them up
+        # even if the user declines to save config to .env
+        export DOTENV_CONTAINER_NCCL_NET_PLUGIN=none
+        export DOTENV_CONTAINER_NCCL_IB_SUBNET_AWARE_ROUTING=1
+        export DOTENV_CONTAINER_NCCL_IB_MERGE_NICS=0
+
     else
         echo "Error: Unexpected number of active CX7 interfaces ($num_up). Expected 2 (non-mesh) or 4 (mesh)."
         return 1
@@ -411,6 +417,12 @@ save_config() {
         echo "LOCAL_IP=$LOCAL_IP"
         echo "ETH_IF=$ETH_IF"
         echo "IB_IF=$IB_IF"
+        if [[ "$MESH_MODE" == "true" ]]; then
+            echo "# Mesh mode NCCL settings"
+            echo "CONTAINER_NCCL_NET_PLUGIN=none"
+            echo "CONTAINER_NCCL_IB_SUBNET_AWARE_ROUTING=1"
+            echo "CONTAINER_NCCL_IB_MERGE_NICS=0"
+        fi
     } > "$env_file"
     echo ""
     echo "Saved to $env_file"
