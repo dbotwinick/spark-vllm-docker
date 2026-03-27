@@ -28,9 +28,9 @@ defaults:
   port: 8000
   host: 0.0.0.0
   pipeline_parallel: 3
-  gpu_memory_utilization: 0.6
+  gpu_memory_utilization: 0.7
   max_model_len: 262144
-  max_num_batched_tokens: 4176
+  max_num_batched_tokens: 16384
 
 # Environment variables
 env: 
@@ -55,7 +55,6 @@ command: |
     --chat-template unsloth.jinja \
     -tp 1 \
     -pp {pipeline_parallel} \
-    --enable-expert-parallel \
     --distributed-executor-backend ray
 
   
