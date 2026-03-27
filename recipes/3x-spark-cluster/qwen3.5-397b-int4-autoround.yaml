@@ -27,7 +27,7 @@ mods:
 defaults:
   port: 8000
   host: 0.0.0.0
-  pipeline_parellel: 3
+  pipeline_parallel: 3
   gpu_memory_utilization: 0.6
   max_model_len: 262144
   max_num_batched_tokens: 4176
